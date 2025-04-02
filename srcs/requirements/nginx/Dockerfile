@@ -10,21 +10,36 @@
 #                                                                              #
 # **************************************************************************** #
 
-FROM debian:buster
+# FROM debian:buster
+# RUN   apt-get clean && apt-get update --fix-missing
+# RUN apt-get -y install nginx openssl
+# RUN openssl req -newkey rsa:2048 -nodes -keyout /etc/ssl/key.pem -x509 -days 365 -out /etc/ssl/certificate.pem -subj "/C=MR/ST=KHOURIBGA/L=1337/O=ANASTABITI/CN=atabiti.42.fr";
+# COPY ./conf/nginx.conf  /etc/nginx/conf.d/nginx.conf
+# EXPOSE 443
+# CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
+
+
+
+
+
+
+
+
+FROM nginx
 RUN   apt-get clean && apt-get update --fix-missing
-RUN apt-get -y install nginx openssl
+# Install OpenSSL for certificate generation
+RUN apt-get update && apt-get install -y openssl
+# Generate SSL certificates
 RUN openssl req -newkey rsa:2048 -nodes -keyout /etc/ssl/key.pem -x509 -days 365 -out /etc/ssl/certificate.pem -subj "/C=MR/ST=KHOURIBGA/L=1337/O=ANASTABITI/CN=atabiti.42.fr";
+
+
+# Copy Nginx configuration
 COPY ./conf/nginx.conf  /etc/nginx/conf.d/nginx.conf
+# Expose HTTPS port
 EXPOSE 443
-CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
 
-
-
-
-
-
-
-
+# # # Use the default Nginx command
+# CMD ["nginx", "-g", "daemon off;"]
 
 
 
