@@ -1,4 +1,5 @@
 #1 Creates a new wp-config.php with database constants
+sleep 10
 cd  /atabiti/wordpress && wp config create	--allow-root --skip-check \
 	 --dbname=$MYSQL_NAME --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD \
 	  --dbhost=$MYSQL_HOST --path=/atabiti/wordpress
