@@ -1,0 +1,4 @@
+host: all
+become: true
+tasks:
+-name: 

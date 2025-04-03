@@ -5,5 +5,5 @@ FROM ubuntu:20.04
 RUN apt-get update && \
     apt install -y software-properties-common && \
     add-apt-repository --yes --update ppa:ansible/ansible && \
-    apt install -y ansible iproute2 vim
+    apt install -y ansible iproute2 vim python pip && pip install boto3 botocore && ansible-galaxy collection install amazon.aws
 CMD ["bash"]
