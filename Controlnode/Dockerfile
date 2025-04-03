@@ -5,5 +5,5 @@ FROM ubuntu:20.04
 RUN apt-get update && \
     apt install -y software-properties-common && \
     add-apt-repository --yes --update ppa:ansible/ansible && \
-    apt install -y ansible
-
+    apt install -y ansible iproute2 vim
+CMD ["bash"]
