@@ -1,4 +1,45 @@
-host: all
-become: true
-tasks:
--name: 
+---
+- hosts: all
+  remote_user: ubuntu
+  become: true
+  tasks:
+    - name: Debug system information
+      ansible.builtin.debug:
+        msg: "Architecture: {{ ansible_architecture }}, Distribution: {{ ansible_distribution }}, Release: {{ ansible_distribution_release }} {{ansible_lsb.codename }}}"
+    # https://docs.docker.com/engine/install/ubuntu/
+    - name: install  ca-certificates
+      ansible.builtin.apt:
+          name:
+            - ca-certificates
+            - curl
+          update_cache: yes
+
+    - name: Create /etc/apt/keyrings directory
+      ansible.builtin.file:
+          path: /etc/apt/keyrings
+          state: directory
+
+    - name: Download Docker's official GPG key
+      ansible.builtin.get_url:
+          url: https://download.docker.com/linux/ubuntu/gpg
+          dest: /etc/apt/keyrings/docker.asc
+
+    - name: Add Docker repository to APT sources
+      ansible.builtin.copy:
+          dest: /etc/apt/sources.list.d/docker.list
+          content: |
+            deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+          # mode: '0644'
+
+    - name: Update apt cache
+      ansible.builtin.apt:
+          update_cache: yes
+    - name: install now docker  sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+      ansible.builtin.apt:
+          name:
+            - docker-ce
+            - docker-ce-cli
+            - containerd.io
+            - docker-buildx-plugin
+            - docker-compose-plugin
+          update_cache: yes
