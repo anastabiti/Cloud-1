@@ -4,7 +4,7 @@ services:
     build: .
     tty: true
     volumes:
-      - /media/atabiti/atabiti_ssd/lastcl/Controlnode:/etc/ansible
+      - /media/atabiti/atabiti_ssd/lastcl:/etc/ansible
     environment:
       - AWS_ACCESS_KEY_ID=AKIA2OIVDJBUVT7I2UWB
       - AWS_SECRET_ACCESS_KEY=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
