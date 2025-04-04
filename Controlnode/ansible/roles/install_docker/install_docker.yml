@@ -5,7 +5,7 @@
   tasks:
     - name: Debug system information
       ansible.builtin.debug:
-        msg: "Architecture: {{ ansible_architecture }}, Distribution: {{ ansible_distribution }}, Release: {{ ansible_distribution_release }} {{ansible_lsb.codename }}}"
+          msg: "Architecture: {{ ansible_architecture }}, Distribution: {{ ansible_distribution }}, Release: {{ ansible_distribution_release }} {{ansible_lsb.codename }}}"
     # https://docs.docker.com/engine/install/ubuntu/
     - name: install  ca-certificates
       ansible.builtin.apt:
@@ -28,7 +28,7 @@
       ansible.builtin.copy:
           dest: /etc/apt/sources.list.d/docker.list
           content: |
-            deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+              deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
           # mode: '0644'
 
     - name: Update apt cache
@@ -43,3 +43,6 @@
             - docker-buildx-plugin
             - docker-compose-plugin
           update_cache: yes
+    - name: install docker compose
+      ansible.builtin.apt:
+          name: docker-compose
