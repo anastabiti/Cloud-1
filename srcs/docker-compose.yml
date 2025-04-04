@@ -1,19 +1,19 @@
 version: '3.8'
 networks:
   docker-network:
-volumes:
-  database:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/atabiti/data/database
-  wordfiles:
-    driver: local
-    driver_opts:
-      type: none 
-      o: bind
-      device: /home/atabiti/data/wordpress
+# volumes:
+#   database:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: /home/atabiti/data/database
+#   wordfiles:
+#     driver: local
+#     driver_opts:
+#       type: none 
+#       o: bind
+#       device: /home/atabiti/data/wordpress
 services:
 
 
@@ -27,7 +27,7 @@ services:
     networks:
       -  docker-network
     volumes:
-      - wordfiles:/atabiti
+      - /home/data/wordpress:/atabiti
     depends_on:
       - wordpress
     env_file: ./.env
@@ -53,8 +53,7 @@ services:
     networks:
       -  docker-network
     volumes:
-        - database:/var/lib/mysql
-
+      - /home/data/database:/var/lib/mysql
 
 
 
@@ -69,7 +68,7 @@ services:
     networks:
      -  docker-network
     volumes:
-        - wordfiles:/atabiti
+      - /home//data/wordpress:/atabiti
 
 
 
