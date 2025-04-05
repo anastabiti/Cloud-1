@@ -3,13 +3,13 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/amrakibe/data/srcs_db
+      device: /root/data/srcs_db
       o: bind
   wp:
     driver: local
     driver_opts:
       type: none
-      device: /home/amrakibe/data/srcs_wp
+      device: /root/data/srcs_wp
       o: bind
 
 services:
