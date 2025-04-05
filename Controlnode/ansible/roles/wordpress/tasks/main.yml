@@ -1,0 +1,8 @@
+---
+# tasks file for wordpress
+- name: Create data directory for WordPress
+  file:
+    path: "/home/data/wordpress"
+    state: directory
+    mode: '0755'
+  become: true

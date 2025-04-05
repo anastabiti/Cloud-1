@@ -1,0 +1,9 @@
+---
+# tasks file for nginx
+# roles/nginx/tasks/main.yml
+- name: Create directories for Nginx
+  file:
+    path: "/home/data/wordpress"
+    state: directory
+    mode: '0755'
+  become: true

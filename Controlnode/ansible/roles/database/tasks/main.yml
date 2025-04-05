@@ -1,2 +1,7 @@
 ---
 # tasks file for database
+- name: Create data directory for MariaDB
+  file:
+    path: "/home/data/database"
+    state: directory
+  become: true
