@@ -23,7 +23,7 @@ services:
     build: ./requirements/nginx
     ports:
       - "443:443"
-    restart: unless-stopped
+    restart: always
     networks:
       -  docker-network
     volumes:
@@ -49,7 +49,7 @@ services:
       # Regular user and password
       MARIADB_USER: ${MYSQL_USER}
       MARIADB_PASSWORD: ${MYSQL_PASSWORD}
-    restart: unless-stopped
+    restart: always
     networks:
       -  docker-network
     volumes:
@@ -58,7 +58,7 @@ services:
 
 
   wordpress:
-    restart: unless-stopped
+    restart: always
     image: wordpress
     depends_on:
       - mariadb

@@ -4,5 +4,5 @@
   tasks:
   - name: copy files/folders
     ansible.builtin.copy:
-      src: /etc/ansible/srcs
+      src: ../../../../srcs
       dest: /home
