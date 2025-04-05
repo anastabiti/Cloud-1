@@ -41,14 +41,14 @@ services:
     image: mariadb
     container_name: mariadb
     build: ./requirements/mariadb
-    environment:
-      # Root password
-      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
-      # Database name
-      MARIADB_DATABASE: ${MYSQL_NAME}
-      # Regular user and password
-      MARIADB_USER: ${MYSQL_USER}
-      MARIADB_PASSWORD: ${MYSQL_PASSWORD}
+    # environment:
+    #   # Root password
+    #   MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+    #   # Database name
+    #   MARIADB_DATABASE: ${MYSQL_NAME}
+    #   # Regular user and password
+    #   MARIADB_USER: ${MYSQL_USER}
+    #   MARIADB_PASSWORD: ${MYSQL_PASSWORD}
     restart: always
     networks:
       -  docker-network
