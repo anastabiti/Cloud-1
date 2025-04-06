@@ -22,4 +22,4 @@
 FROM mariadb:latest
 
 # COPY ./conf/input /docker-entrypoint-initdb.d/init.sql
-# EXPOSE 3306
+EXPOSE 3306

@@ -1,4 +1,4 @@
-version: '3.8'
+# version: '3.8'
 networks:
   docker-network:
 # volumes:
@@ -37,7 +37,6 @@ services:
 
   
   mariadb:
-    env_file: ./.env
     image: mariadb
     container_name: mariadb
     build: ./requirements/mariadb
@@ -49,6 +48,7 @@ services:
     #   # Regular user and password
     #   MARIADB_USER: ${MYSQL_USER}
     #   MARIADB_PASSWORD: ${MYSQL_PASSWORD}
+    env_file: ./.env
     restart: always
     networks:
       -  docker-network

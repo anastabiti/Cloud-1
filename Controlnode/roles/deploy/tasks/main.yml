@@ -1,0 +1,5 @@
+- name: run docker-compose up --build
+  ansible.builtin.command:
+    cmd: docker compose up --build -d
+    chdir: /home/atabiti/srcs
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/command_module.html
