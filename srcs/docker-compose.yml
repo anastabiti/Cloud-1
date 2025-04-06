@@ -68,7 +68,7 @@ services:
     networks:
      -  docker-network
     volumes:
-      - /home//data/wordpress:/atabiti
+      - /home/data/wordpress:/atabiti
 
 
 

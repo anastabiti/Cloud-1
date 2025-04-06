@@ -1,11 +1,43 @@
+# ---
+# - hosts: all
+#   remote_user: ubuntu
+#   become: true
+#   roles:
+#     - copy_files_to_servers
+#     - install_docker
+#     - database
+#     - nginx
+#     - deploy
+#     - wordpress
 ---
 - hosts: all
   remote_user: ubuntu
   become: true
+  vars:
+    # WordPress container and URL settings
+    container_name: wordpress
+    wordpress_url: "https://{{ lookup('pipe', 'curl -s https://api.ipify.org') }}"
+    site_title: ATABITI INCEPTION
+
+    # Database credentials (for wp-config.php creation)
+    mysql_name: MyDB
+    mysql_user: atabiti
+    mysql_password: akjnaskjnkjnaiuniuiiueiu9wekjkjeeek
+    mysql_host: mariadb  # Ensure this matches your Docker Compose service name
+
+    # WordPress admin credentials
+    wordpress_admin: anas
+    wordpress_password_admin: "20222022"
+    admin_email: atabiti@student.1337.ma
+
+    # Additional WordPress user
+    wordpress_user: normaluser
+    wordpress_password: "19981998"
+
   roles:
     - copy_files_to_servers
     - install_docker
     - database
     - nginx
+    - deploy
     - wordpress
-    # - deploy

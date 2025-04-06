@@ -1,7 +1,7 @@
-# - hosts: all
-#   remote_user: ubuntu
-#   become: true
-#   tasks:
+- hosts: all
+  remote_user: ubuntu
+  become: true
+  tasks:
   - name: copy files/folders
     ansible.builtin.copy:
       src: ../../../../srcs
