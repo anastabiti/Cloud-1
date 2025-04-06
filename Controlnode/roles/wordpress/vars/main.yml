@@ -1,2 +1,22 @@
 ---
 # vars file for wordpress
+
+wordpress_dir: "/home/data/wordpress"
+wp_db_name: "MyDB"
+wp_db_user: "atabiti"                
+wp_db_password: "akjnaskjnkjnaiuniuiiueiu9wekjkjeeek"  
+wp_db_host: "172.18.0.2"                 
+wp_admin_user: "anas"
+wp_admin_password: "20222022"
+wp_admin_email: "admin@domain.com"
+wp_user: "normaluser"
+wp_user_password: "19981998"
+wordpress_url: "http://16.171.7.190"
+wp_packages:
+  - wget
+  - tar
+  - unzip
+  - php
+  - php-cli
+  - php-mysql
+  - php-xml
