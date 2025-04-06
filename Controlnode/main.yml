@@ -1,0 +1,10 @@
+---
+- hosts: all
+  remote_user: ubuntu
+  become: true
+  roles:
+    - copy_files_to_servers
+    - install_docker
+    - database
+    - nginx
+    - wordpress

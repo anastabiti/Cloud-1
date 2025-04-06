@@ -1,8 +1,8 @@
----
-- hosts: all
-  remote_user: ubuntu
-  become: true
-  tasks:
+# ---
+# - hosts: all
+#   remote_user: ubuntu
+#   become: true
+#   tasks:
     - name: Debug system information
       ansible.builtin.debug:
           msg: "Architecture: {{ ansible_architecture }}, Distribution: {{ ansible_distribution }}, Release: {{ ansible_distribution_release }} {{ansible_lsb.codename }}}"

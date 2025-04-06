@@ -1,6 +1,6 @@
----
-# tasks file for nginx
-# roles/nginx/tasks/main.yml
+# ---
+# # tasks file for nginx
+# # roles/nginx/tasks/main.yml
 - name: Create directories for Nginx
   file:
     path: "/home/data/wordpress"
