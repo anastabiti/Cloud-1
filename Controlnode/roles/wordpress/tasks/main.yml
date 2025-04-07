@@ -4,23 +4,35 @@
 #   become: yes
 # tasks:
 
-# - name: Get my public IP
-#   community.general.ipify_facts:
-#   register: public_ip_result
-# - name: Display public IP information
-#   debug:
-#     msg: "Your public IP is {{ public_ip_result.ansible_facts.ipify_public_ip }}"
-# - name: Set WordPress URL from public IP
-#   ansible.builtin.set_fact:
-#     wordpress_url: "http://{{ public_ip_result.ansible_facts.ipify_public_ip }}"
+- name: Get my public IP
+  community.general.ipify_facts:
+  register: public_ip_result
+- name: Display public IP information
+  debug:
+    msg: "Your public IP is {{ public_ip_result.ansible_facts.ipify_public_ip }}"
+- name: Set WordPress URL from public IP
+  ansible.builtin.set_fact:
+    wordpress_url: "http://{{ public_ip_result.ansible_facts.ipify_public_ip }}"
+- name: Get IP of MariaDB container
+  ansible.builtin.command: "docker inspect -f '{{ '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' }}' mariadb"
+  register: wp_db_host_raw
+
+
+- name: Set wp_db_host fact
+  ansible.builtin.set_fact:
+    wp_db_host: "{{ wp_db_host_raw.stdout }}"
+  
+- name: Display wp_db_host
+  debug:
+    msg: "MariaDB IP is {{ wp_db_host }}"
 # - name: Get IP of MariaDB container
 #   ansible.builtin.command: "docker inspect -f '{{ docker_inspect_format }}' mariadb"
 #   vars:
 #     docker_inspect_format: "{{ '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' }}"
 #   register: wp_db_host
-#  # - name: Print the output of MariaDB IP grep
-#  #   debug:
-#  #     var: wp_db_host
+ # - name: Print the output of MariaDB IP grep
+ #   debug:
+ #     var: wp_db_host
 
 - name: Create WordPress directory
   ansible.builtin.file:
