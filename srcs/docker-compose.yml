@@ -1,6 +1,6 @@
 # version: '3.8'
-networks:
-  docker-network:
+# networks:
+#   docker-network:
 # volumes:
 #   database:
 #     driver: local
@@ -24,8 +24,8 @@ services:
     ports:
       - "443:443"
     restart: always
-    networks:
-      -  docker-network
+    # networks:
+    #   -  docker-network
     volumes:
       - /home/data/wordpress:/atabiti
     depends_on:
@@ -53,8 +53,8 @@ services:
     # - "3306:3306"
 
     restart: always
-    networks:
-      -  docker-network
+    # networks:
+    #   -  docker-network
     volumes:
       - /home/data/database:/var/lib/mysql
 
@@ -68,8 +68,8 @@ services:
     build: ./requirements/wordpress
     container_name: wordpress
     env_file: ./.env
-    networks:
-     -  docker-network
+    # networks:
+    #  -  docker-network
     volumes:
       - /home/data/wordpress:/atabiti
 

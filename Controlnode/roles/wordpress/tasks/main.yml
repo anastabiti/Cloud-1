@@ -3,6 +3,10 @@
 #   hosts: all
 #   become: yes
 # tasks:
+# https://serverfault.com/questions/558378/pass-variables-to-ansible-playbooks
+- name: Show extra variables using debug
+  debug:
+    msg: "{{wordpress_dir}} {{wp_db_name}} {{wp_db_user}} {{wp_db_password}}"
 
 - name: Get my public IP
   community.general.ipify_facts:
