@@ -1,9 +1,23 @@
-# ---
+---
 # # tasks file for nginx
 # # roles/nginx/tasks/main.yml
-- name: Create directories for Nginx
-  file:
-    path: "/home/data/wordpress"
-    state: directory
-    mode: '0755'
-  become: true
+# - name: Create directories for Nginx
+#   file:
+#     path: "/home/data/wordpress"
+#     state: directory
+#     mode: '0755'
+#   become: true
+- name: Upload nginx.conf to EC2 instance
+  ansible.builtin.copy:
+    src: ../files/nginx.conf            # This is on your local control node
+    dest: /tmp/nginx.conf          # Temporary path on the EC2 instance
+- name: Copy a file into the container
+  community.docker.docker_container_copy_into:
+    container: nginx
+    path: /tmp/nginx.conf
+    container_path: /etc/nginx/conf.d/nginx.conf
+# - name: Copy nginx.conf into Docker container
+#   community.docker.docker_container_copy_into:
+#     container: my_nginx_container  # Replace with your container name or ID
+#     path: /etc/nginx/nginx.conf    # Destination inside the container
+#     src: /tmp/nginx.conf  
