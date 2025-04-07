@@ -6,6 +6,6 @@
     # - copy_files_to_servers
     # - install_docker
     # - database
-    - nginx
     # - deploy
+    - nginx
     # - wordpress

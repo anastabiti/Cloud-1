@@ -97,7 +97,7 @@
   args:
     chdir: "{{ wordpress_dir }}/wordpress"
   loop:
-  - "./wp-cli.phar core install --url={{ wordpress_url }} --title='My WordPress Site' --admin_user={{ wp_admin_user }} --admin_password={{ wp_admin_password }} --admin_email={{ wp_admin_email }} --allow-root"
+  - "./wp-cli.phar core install --url={{ wordpress_url }} --title='ANAS TABITI SITE' --admin_user={{ wp_admin_user }} --admin_password={{ wp_admin_password }} --admin_email={{ wp_admin_email }} --allow-root"
   - "./wp-cli.phar user create {{ wp_user }} {{ wp_user }}@domain.com --role=editor --user_pass={{ wp_user_password }} --allow-root"
   - "./wp-cli.phar option update home '{{ wordpress_url }}' --allow-root"
   - "./wp-cli.phar option update siteurl '{{ wordpress_url }}' --allow-root"
