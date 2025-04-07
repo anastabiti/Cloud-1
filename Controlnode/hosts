@@ -1,4 +1,4 @@
 [all]
 # ec2-16-171-21-37.eu-north-1.compute.amazonaws.com ansible_user=ubuntu ansible_ssh_private_key_file=/home/atabiti/atabiti.pem
-ec2-13-60-66-247.eu-north-1.compute.amazonaws.com ansible_user=ubuntu ansible_ssh_private_key_file=/home/atabiti/atabiti.pem
+ec2-13-60-190-244.eu-north-1.compute.amazonaws.com ansible_user=ubuntu ansible_ssh_private_key_file=/home/atabiti/atabiti.pem
 

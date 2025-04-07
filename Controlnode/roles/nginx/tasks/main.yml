@@ -8,3 +8,8 @@
     container: nginx
     path: /tmp/nginx.conf
     container_path: /etc/nginx/conf.d/nginx.conf
+- name: Reload nginx inside the container
+  community.docker.docker_container_exec:
+    container: nginx
+    command: nginx -s reload
+    # tty: yes
