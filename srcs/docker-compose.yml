@@ -49,6 +49,9 @@ services:
     #   MARIADB_USER: ${MYSQL_USER}
     #   MARIADB_PASSWORD: ${MYSQL_PASSWORD}
     env_file: ./.env
+    # ports:
+    # - "3306:3306"
+
     restart: always
     networks:
       -  docker-network
