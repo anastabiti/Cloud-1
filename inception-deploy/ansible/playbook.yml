@@ -1,0 +1,7 @@
+- name: Set up Docker + WordPress on DO droplet
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update APT
+      apt:
+        update_cache: yes
