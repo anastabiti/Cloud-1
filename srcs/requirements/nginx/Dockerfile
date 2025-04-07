@@ -35,8 +35,8 @@ RUN openssl req -newkey rsa:2048 -nodes -keyout /etc/ssl/key.pem -x509 -days 365
 
 
 
-# Copy Nginx configuration
-COPY ./conf/nginx.conf  /etc/nginx/conf.d/nginx.conf
+# # Copy Nginx configuration
+# COPY ./conf/nginx.conf  /etc/nginx/conf.d/nginx.conf
 # Expose HTTPS port
 EXPOSE 443
 
