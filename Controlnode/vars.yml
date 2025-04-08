@@ -1,0 +1,10 @@
+# vars.yml
+wordpress_dir: /home/data/wordpress
+wp_db_name: MyDB
+wp_db_user: atabiti
+wp_db_password: akjnaskjnkjnaiuniuiiueiu9wekjkjeeek
+wp_admin_user: anas
+wp_admin_password: "20222022"  # Quotes are optional unless value contains special characters
+wp_admin_email: admin@domain.com
+wp_user: normaluser
+wp_user_password: "19981998"

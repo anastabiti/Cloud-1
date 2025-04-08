@@ -3,9 +3,9 @@
   remote_user: ubuntu
   become: true
   roles:
-    # - copy_files_to_servers
-    # - install_docker
-    # - database
-    # - deploy
-    # - wordpress
+    - copy_files_to_servers
+    - install_docker
+    - database
+    - deploy
+    - wordpress
     - nginx
