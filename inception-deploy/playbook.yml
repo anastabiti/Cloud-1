@@ -1,0 +1,6 @@
+- name: Deploy full tasks
+  hosts: new_droplet
+  become: yes
+
+  roles:
+  - inception_setup_files

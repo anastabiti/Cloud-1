@@ -1,0 +1,6 @@
+---
+# tasks file for inception_setup_files
+- name: Copy files/folders
+  ansible.builtin.copy:
+    src: ../../../Inception  # Path to the local source
+    dest: /root/
