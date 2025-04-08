@@ -7,7 +7,7 @@
   community.docker.docker_container_copy_into:
     container: nginx
     path: /tmp/nginx.conf
-    container_path: /etc/nginx/conf.d/nginx.conf
+    container_path: /etc/nginx/conf.d/default.conf
 - name: Reload nginx inside the container
   community.docker.docker_container_exec:
     container: nginx
