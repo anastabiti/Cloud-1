@@ -23,7 +23,7 @@ services:
     build: ./requirements/nginx
     ports:
       - "443:443"
-      - "80:443"
+      - "80:80"
     restart: always
     # networks:
     #   -  docker-network

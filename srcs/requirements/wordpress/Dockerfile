@@ -27,7 +27,46 @@
 # COPY ./conf/script.sh /var/script.sh
 # CMD sh /var/script.sh
 
-FROM wordpress:php7.3-fpm
+# FROM wordpress:php7.3-fpm
+# # FROM wordpress:php8.4-fpm-alpine
+
+# # Create the required directory structure
+# RUN mkdir -p /atabiti/wordpress
+
+# # Copy custom configuration script
+# COPY ./conf/script.sh /var/script.sh
+
+# # Make the script executable
+# RUN chmod +x /var/script.sh
+
+# # Configure PHP-FPM
+# RUN sed -i 's/\/run\/php\/php8.4-fpm.sock/wordpress:9000/g' /usr/local/etc/php-fpm.d/www.conf \
+#     && sed -i 's/;request_terminate_timeout = 0/request_terminate_timeout = 300/g' /usr/local/etc/php-fpm.d/www.conf
+
+# # Install sendmail and curl (needed for wp-cli)
+# RUN apt-get update && apt-get install -y sendmail curl wget
+
+
+# # # Install WP-CLI properly
+# # RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+# #     && chmod +x wp-cli.phar \
+# #     && mv wp-cli.phar /usr/local/bin/wp \
+# #     && wp --info
+
+# # Expose port 9000 for PHP-FPM
+# EXPOSE 9000
+
+# # Set the working directory to match what nginx expects
+# WORKDIR /atabiti/wordpress
+
+# # Run the setup script and then PHP-FPM
+# CMD ["bash", "/var/script.sh"]
+
+
+
+
+
+FROM wordpress:php8.4-fpm-alpine
 
 # Create the required directory structure
 RUN mkdir -p /atabiti/wordpress
@@ -39,17 +78,11 @@ COPY ./conf/script.sh /var/script.sh
 RUN chmod +x /var/script.sh
 
 # Configure PHP-FPM
-RUN sed -i 's/\/run\/php\/php7.3-fpm.sock/wordpress:9000/g' /usr/local/etc/php-fpm.d/www.conf \
+RUN sed -i 's/\/run\/php\/php8.4-fpm.sock/wordpress:9000/g' /usr/local/etc/php-fpm.d/www.conf \
     && sed -i 's/;request_terminate_timeout = 0/request_terminate_timeout = 300/g' /usr/local/etc/php-fpm.d/www.conf
 
 # Install sendmail and curl (needed for wp-cli)
-RUN apt-get update && apt-get install -y sendmail curl wget
-
-# Install WP-CLI properly
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-    && chmod +x wp-cli.phar \
-    && mv wp-cli.phar /usr/local/bin/wp \
-    && wp --info
+RUN apk add --no-cache  curl wget
 
 # Expose port 9000 for PHP-FPM
 EXPOSE 9000
@@ -58,9 +91,4 @@ EXPOSE 9000
 WORKDIR /atabiti/wordpress
 
 # Run the setup script and then PHP-FPM
-CMD ["bash", "/var/script.sh"]
-
-
-
-#MAN
-#chmod 111 make it executable for all
+CMD ["sh", "/var/script.sh"]

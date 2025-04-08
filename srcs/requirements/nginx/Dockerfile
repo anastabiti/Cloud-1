@@ -25,20 +25,22 @@
 
 
 
-FROM nginx
-RUN   apt-get clean && apt-get update --fix-missing
+# FROM nginx
+FROM nginx:stable-alpine3.20-slim
+# RUN   apt-get clean && apt-get update --fix-missing
+RUN  apk update && apk add --no-cache openssl
 # Install OpenSSL for certificate generation
-RUN apt-get update && apt-get install -y openssl
+# RUN apt-get update && apt-get install -y openssl
 # Generate SSL certificates
 # RUN openssl req -newkey rsa:2048 -nodes -keyout /etc/ssl/key.pem -x509 -days 365 -out /etc/ssl/certificate.pem -subj "/C=MR/ST=KHOURIBGA/L=1337/O=ANASTABITI/CN=localhost";
-RUN openssl req -newkey rsa:2048 -nodes -keyout /etc/ssl/key.pem -x509 -days 365 -out /etc/ssl/certificate.pem -subj "/C=MR/ST=KHOURIBGA/L=1337/O=ANASTABITI/CN=wordpress";
+RUN openssl req -newkey rsa:2048 -nodes -keyout /etc/ssl/key.pem -x509 -days 365 -out /etc/ssl/certificate.cert -subj "/C=MR/ST=KHOURIBGA/L=1337/O=ANASTABITI/CN=wordpress";
 
 
 
-# # Copy Nginx configuration
+# # Copy Nginx configuration i removed this 
 # COPY ./conf/nginx.conf  /etc/nginx/conf.d/nginx.conf
 # Expose HTTPS port
-EXPOSE 443
+EXPOSE 80 443 
 
 # # # Use the default Nginx command
 # CMD ["nginx", "-g", "daemon off;"]
