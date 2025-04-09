@@ -1,5 +1,9 @@
 ---
-# tasks file for mariadb
+# create-directory for volume database 
+- name: Copy mariadb to remote server
+  ansible.builtin.copy:
+    src: ../../../Inception/mariadb
+    dest: /root/Inception/
 - name: Create directory /root/data/srcs_db
   file:
     path: /root/data/srcs_db

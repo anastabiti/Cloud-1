@@ -35,18 +35,6 @@ services:
       - wp:/var/www/html
     networks:
       - mynetwork
-  phpmyadmin:
-    build: ./phpMyAdmin
-    container_name: phpmyadmin_container
-    restart: always
-    depends_on:
-      - mariadb
-    env_file:
-      - .env
-    ports:
-      - 9090:90
-    networks:
-      - mynetwork
   nginx:
     container_name : nginx
     build: ./nginx

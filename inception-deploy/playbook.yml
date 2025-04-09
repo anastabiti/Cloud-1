@@ -3,7 +3,9 @@
   become: yes
 
   roles:
-  # - common
+  - common
   - inception_setup_files
-  # - mariadb
-  # - wordpress
+  - mariadb
+  - wordpress
+  - nginx
+  - run
