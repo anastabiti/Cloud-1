@@ -1,2 +1,10 @@
 ---
 # tasks file for mariadb
+- name: Create directory /root/data/srcs_db
+  file:
+    path: /root/data/srcs_db
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+    recurse: yes

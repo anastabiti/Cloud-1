@@ -1,2 +1,1 @@
-FROM mariadb:latest
-EXPOSE 3306
+FROM mariadb:10.11.11-jammy

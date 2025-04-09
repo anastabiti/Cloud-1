@@ -1,2 +1,10 @@
 ---
 # tasks file for wordpress
+- name: Create directory /root/data/srcs_wp
+  file:
+    path: /root/data/srcs_wp
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+    recurse: yes
