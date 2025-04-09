@@ -4,16 +4,17 @@
 #   become: yes
 # tasks:
 # https://serverfault.com/questions/558378/pass-variables-to-ansible-playbooks
-- name: Show extra variables using debug
-  debug:
-    msg: "{{wordpress_dir}} {{wp_db_name}} {{wp_db_user}} {{wp_db_password}}"
+# - name: Show extra variables using debug
+#   debug:
+#     msg: "{{wordpress_dir}} {{wp_db_name}} {{wp_db_user}} {{wp_db_password}}"
 
 - name: Get my public IP
   community.general.ipify_facts:
   register: public_ip_result
-- name: Display public IP information
-  debug:
-    msg: "Your public IP is {{ public_ip_result.ansible_facts.ipify_public_ip }}"
+# - name: Display public IP information
+#   debug:
+#     msg: "Your public IP is {{ public_ip_result.ansible_facts.ipify_public_ip }}"
+
 - name: Set WordPress URL from public IP
   ansible.builtin.set_fact:
     wordpress_url: "http://{{ public_ip_result.ansible_facts.ipify_public_ip }}"
@@ -26,17 +27,10 @@
   ansible.builtin.set_fact:
     wp_db_host: "{{ wp_db_host_raw.stdout }}"
   
-- name: Display wp_db_host
-  debug:
-    msg: "MariaDB IP is {{ wp_db_host }}"
-# - name: Get IP of MariaDB container
-#   ansible.builtin.command: "docker inspect -f '{{ docker_inspect_format }}' mariadb"
-#   vars:
-#     docker_inspect_format: "{{ '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' }}"
-#   register: wp_db_host
- # - name: Print the output of MariaDB IP grep
- #   debug:
- #     var: wp_db_host
+# - name: Display wp_db_host
+#   debug:
+#     msg: "MariaDB IP is {{ wp_db_host }}"
+
 
 - name: Create WordPress directory
   ansible.builtin.file:
