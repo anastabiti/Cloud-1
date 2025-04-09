@@ -70,12 +70,13 @@
     state: started
     enabled: yes
 
-# copy docker-compose
+# copy docker-compose to vm
 - name: Copy docker-compose to remote server
   ansible.builtin.copy:
     src: ../../../Inception/docker-compose.yml
     dest: /root/Inception/
 
+# copy .env to vm
 - name: Copy env to remote server
   ansible.builtin.copy:
     src: ../../../Inception/.env

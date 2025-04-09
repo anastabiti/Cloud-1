@@ -6,17 +6,11 @@ RUN apt-get update -y && apt-get install -y \
     wget \
     curl
 
-# Create the WordPress directory
-# RUN mkdir -p /var/www/html
-
 WORKDIR /var/www/html
 
 # Copy scripts and configuration files directly to their final locations
 COPY ./tools/script.sh /tmp/script.sh
 
-# COPY ./tools/wp-config.php /var/www/html/wp-config.php
-
-# RUN apt-get update && apt-get install -y sendmail
 
 # Install WP-CLI properly
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
@@ -27,7 +21,4 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 # Set permissions for the script
 RUN chmod +x /tmp/script.sh
 
-# WORKDIR /var/www/html
-
-# CMD ["bash", "/tmp/script.sh"]
 ENTRYPOINT ["sh", "-c",  "docker-entrypoint.sh php-fpm & sleep 30 && /tmp/script.sh && wait"]
