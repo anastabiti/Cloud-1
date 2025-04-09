@@ -49,9 +49,6 @@ if ! wp core is-installed --allow-root; then
         --user_pass="$WP_USER_PASSWORD" \
         --role=editor
 
-    echo "Installing and activating Astra theme..."
-    wp theme install astra --activate --allow-root
-    
     echo "WordPress installation complete!"
 else
     echo "WordPress is already installed, performing updates..."
