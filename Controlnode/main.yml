@@ -8,5 +8,5 @@
     - common
     - mariadb
     - run
-    - wordpress
     - nginx
+    - wordpress
