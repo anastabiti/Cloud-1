@@ -10,7 +10,7 @@
 - name: copy wordpress to remote server
   ansible.builtin.copy:
     src: ../../../srcs/requirements/wordpress
-    dest: /root/srcs/requirements
+    dest: /home/ubuntu/srcs/requirements
 - name: Get my public IP
   community.general.ipify_facts:
   register: public_ip_result
@@ -22,7 +22,7 @@
   ansible.builtin.set_fact:
     wordpress_url: "http://{{ public_ip_result.ansible_facts.ipify_public_ip }}"
 - name: Get IP of MariaDB container
-  ansible.builtin.command: "docker inspect -f '{{ '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' }}' mariadb"
+  ansible.builtin.command: "sudo docker inspect -f '{{ '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' }}' mariadb" # zdt ssudo 
   register: wp_db_host_raw
 
 

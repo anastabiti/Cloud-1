@@ -2,7 +2,7 @@
 - name: copy nginx to remote server
   ansible.builtin.copy:
     src: ../../../srcs/requirements/nginx
-    dest: /root/srcs/requirements
+    dest: /home/ubuntu/srcs/requirements
 - name: Upload nginx.conf to EC2 instance
   ansible.builtin.copy:
     src: ../files/nginx.conf            # This is on my local control node

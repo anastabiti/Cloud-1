@@ -3,7 +3,7 @@
 - name: Copy mariadb to remote server
   ansible.builtin.copy:
     src: ../../../srcs/requirements/mariadb
-    dest: /root/srcs/requirements
+    dest: /home/ubuntu/srcs/requirements
 - name: Create directory /root/data/srcs_db
   file:
     path: /root/data/srcs_db
