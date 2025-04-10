@@ -1,0 +1,10 @@
+---
+- hosts: cloud-1
+  remote_user: ubuntu
+  become: true
+  vars_files:
+    - secrets.yml
+  roles:
+    - mariadb
+    - wordpress
+    - nginx

@@ -1,0 +1,15 @@
+# [all]
+# ec2-16-171-250-18.eu-north-1.compute.amazonaws.com ansible_user=ubuntu ansible_ssh_private_key_file=/home/atabiti/atabiti.pem
+
+
+
+
+# #digitalocean 
+# 146.190.164.253 ansible_user=root ansible_ssh_private_key_file=~/.ssh/id_rsa 
+
+
+
+
+[new_droplet]
+# 51.44.161.134 ansible_user=ubuntu ansible_ssh_private_key_file=/goinfre/amrakibe/Cloud-1/Controlnode/secrets/cloud-key.pem
+ec2-51-44-161-134.eu-west-3.compute.amazonaws.com ansible_user=cloud-1 ansible_ssh_private_key_file=./secrets/cloud-key.pem

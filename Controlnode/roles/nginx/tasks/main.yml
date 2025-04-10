@@ -1,0 +1,19 @@
+---
+- name: copy nginx to remote server
+  ansible.builtin.copy:
+    src: ../../../srcs/requirements/nginx
+    dest: /root/srcs/requirements
+- name: Upload nginx.conf to EC2 instance
+  ansible.builtin.copy:
+    src: ../files/nginx.conf            # This is on my local control node
+    dest: /tmp/nginx.conf          # Temporary path on the EC2 instance
+- name: Copy a file into the container
+  community.docker.docker_container_copy_into:
+    container: nginx
+    path: /tmp/nginx.conf
+    container_path: /etc/nginx/conf.d/default.conf
+- name: Reload nginx inside the container
+  community.docker.docker_container_exec:
+    container: nginx
+    command: nginx -s reload
+    # tty: yes
