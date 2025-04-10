@@ -1,0 +1,80 @@
+# version: '3.8'
+# networks:
+#   docker-network:
+# volumes:
+#   database:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: /home/atabiti/data/database
+#   wordfiles:
+#     driver: local
+#     driver_opts:
+#       type: none 
+#       o: bind
+#       device: /home/atabiti/data/wordpress
+services:
+
+
+  nginx:
+    image: nginx
+    container_name: nginx
+    build: ./requirements/nginx
+    ports:
+      - "443:443"
+      - "80:80"
+    restart: always
+    # networks:
+    #   -  docker-network
+    volumes:
+      - /home/data/wordpress:/atabiti
+    depends_on:
+      - wordpress
+    env_file: ./.env
+
+  
+
+
+  
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    build: ./requirements/mariadb
+    # environment:
+    #   # Root password
+    #   MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+    #   # Database name
+    #   MARIADB_DATABASE: ${MYSQL_NAME}
+    #   # Regular user and password
+    #   MARIADB_USER: ${MYSQL_USER}
+    #   MARIADB_PASSWORD: ${MYSQL_PASSWORD}
+    env_file: ./.env
+    # ports:
+    # - "3306:3306"
+
+    restart: always
+    # networks:
+    #   -  docker-network
+    volumes:
+      - /home/data/database:/var/lib/mysql
+
+
+
+  wordpress:
+    restart: always
+    image: wordpress
+    depends_on:
+      - mariadb
+    build: ./requirements/wordpress
+    container_name: wordpress
+    env_file: ./.env
+    # networks:
+    #  -  docker-network
+    volumes:
+      - /home/data/wordpress:/atabiti
+
+
+
+    # In terms of Docker, a bridge network uses a software bridge which allows containers connected to the same bridge network to
+    # communicate, while providing isolation from containers which are not connected to that bridge network.

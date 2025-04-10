@@ -1,4 +1,0 @@
-- name: Run docker-compose up
-  ansible.builtin.command:
-    cmd: docker-compose up -d
-    chdir: /root/Inception
