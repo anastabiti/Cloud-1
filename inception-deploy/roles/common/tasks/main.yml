@@ -74,10 +74,10 @@
 - name: Copy docker-compose to remote server
   ansible.builtin.copy:
     src: ../../../Inception/docker-compose.yml
-    dest: /root/Inception/
+    dest: /home/ubuntu/Inception/
 
 # copy .env to vm
 - name: Copy env to remote server
   ansible.builtin.copy:
     src: ../../../Inception/.env
-    dest: /root/Inception/
+    dest: /home/ubuntu/Inception/

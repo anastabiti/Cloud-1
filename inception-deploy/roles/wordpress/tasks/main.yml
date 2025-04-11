@@ -3,7 +3,7 @@
 - name: Copy wordpess to remote server
   ansible.builtin.copy:
     src: ../../../Inception/wordpress
-    dest: /root/Inception/
+    dest: /home/ubuntu/Inception/
 # tasks:  create-directory for volume wordpress in local vm  
 - name: Create directory /root/data/srcs_wp
   file:
