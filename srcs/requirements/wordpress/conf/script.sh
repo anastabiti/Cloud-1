@@ -12,7 +12,7 @@ sleep 10
 
 # echo "Detected server IP: $SERVER_IP"
 # echo "Starting WordPress configuration..."
-# cd /atabiti/wordpress
+# cd /Cloud/wordpress
 
 # # Check if WordPress core files exist, if not download them
 # if [ ! -f "wp-login.php" ]; then
@@ -61,14 +61,14 @@ sleep 10
 echo "Starting PHP-FPM..."
 exec php-fpm
 
-# cd  /atabiti/wordpress && wp config create	--allow-root --skip-check \
+# cd  /Cloud/wordpress && wp config create	--allow-root --skip-check \
 # 	 --dbname=$MYSQL_NAME --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD \
-# 	  --dbhost=$MYSQL_HOST --path=/atabiti/wordpress
+# 	  --dbhost=$MYSQL_HOST --path=/Cloud/wordpress
 # ################################################################################
 # #2 Creates the WordPress tables in the database using the URL, title, 
 # # and default admin user details provided. Performs the famous 5 minute install in seconds or less.
 
-# cd  /atabiti/wordpress &&  wp core install \
+# cd  /Cloud/wordpress &&  wp core install \
 # 		--url="https://localhost"  \
 # 		--title="ATABITI INCEPTION" \
 # 		--admin_user=$WORDPRESS_ADMIN  \
@@ -76,7 +76,7 @@ exec php-fpm
 # 		--admin_email="atabiti@student.1337.ma" --allow-root
 # ###############################################################################
 # #3 Creates a new user.
-# cd  /atabiti/wordpress &&  wp user create $WORDPRESS_USER	anas@localhost \
+# cd  /Cloud/wordpress &&  wp user create $WORDPRESS_USER	anas@localhost \
 # 					--allow-root \
 # 					--role=editor \
 # 					--user_pass=$WORDPRESS_PASSWORD

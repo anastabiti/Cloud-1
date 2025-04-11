@@ -11,13 +11,13 @@
 # **************************************************************************** #
 
 CMD:
-	sudo	mkdir -p /home/atabiti/data/database /home/atabiti/data/wordpress
+	sudo	mkdir -p /home/Cloud/data/database /home/Cloud/data/wordpress
 	 cd srcs &&   sudo docker-compose up --build
 stop:
 	 cd srcs && sudo docker-compose down
 fclean: stop
-	 cd /home/atabiti/data/database && sudo  rm -rf  *
-	cd /home/atabiti/data/wordpress  && sudo rm -rf  *
+	 cd /home/Cloud/data/database && sudo  rm -rf  *
+	cd /home/Cloud/data/wordpress  && sudo rm -rf  *
 	# docker rm -r $(docker ps -a -f status=exited -q)
 	sudo docker system prune -a 
 	sudo docker volume prune

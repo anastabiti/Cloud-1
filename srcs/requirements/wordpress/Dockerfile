@@ -15,7 +15,7 @@
 # #fix Error: Your PHP installation appears to be missing the MySQL extension which is required by WordPress. by installing php-mysql
 # RUN   apt-get update &&  apt-get install -y php php-fpm php-mysql curl wget sendmail:
 # # RUN   mkdir -p /var/www/html/ && cd  /var/www/html/ \
-# RUN   mkdir  /atabiti/ && cd  /atabiti \
+# RUN   mkdir  /Cloud/ && cd  /Cloud \
 #          && wget https://wordpress.org/latest.tar.gz \
 #           &&  tar -xvzf latest.tar.gz \
 #             && curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
@@ -31,7 +31,7 @@
 # # FROM wordpress:php8.4-fpm-alpine
 
 # # Create the required directory structure
-# RUN mkdir -p /atabiti/wordpress
+# RUN mkdir -p /Cloud/wordpress
 
 # # Copy custom configuration script
 # COPY ./conf/script.sh /var/script.sh
@@ -57,7 +57,7 @@
 # EXPOSE 9000
 
 # # Set the working directory to match what nginx expects
-# WORKDIR /atabiti/wordpress
+# WORKDIR /Cloud/wordpress
 
 # # Run the setup script and then PHP-FPM
 # CMD ["bash", "/var/script.sh"]
@@ -69,7 +69,7 @@
 FROM wordpress:php8.4-fpm-alpine
 
 # Create the required directory structure
-RUN mkdir -p /atabiti/wordpress
+RUN mkdir -p /Cloud/wordpress
 
 # Copy custom configuration script
 COPY ./conf/script.sh /var/script.sh
@@ -88,7 +88,7 @@ RUN apk add --no-cache  curl wget
 EXPOSE 9000
 
 # Set the working directory to match what nginx expects
-WORKDIR /atabiti/wordpress
+WORKDIR /Cloud/wordpress
 
 # Run the setup script and then PHP-FPM
 CMD ["sh", "/var/script.sh"]

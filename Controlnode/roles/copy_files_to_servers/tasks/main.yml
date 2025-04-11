@@ -5,4 +5,4 @@
   - name: copy files/folders
     ansible.builtin.copy:
       src: ../../../../srcs
-      dest: /home/atabiti
+      dest: /home/Cloud

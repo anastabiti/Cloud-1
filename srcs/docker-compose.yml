@@ -7,13 +7,13 @@
 #     driver_opts:
 #       type: none
 #       o: bind
-#       device: /home/atabiti/data/database
+#       device: /home/Cloud/data/database
 #   wordfiles:
 #     driver: local
 #     driver_opts:
 #       type: none 
 #       o: bind
-#       device: /home/atabiti/data/wordpress
+#       device: /home/Cloud/data/wordpress
 services:
 
 
@@ -28,7 +28,7 @@ services:
     # networks:
     #   -  docker-network
     volumes:
-      - /home/data/wordpress:/atabiti
+      - /home/data/wordpress:/Cloud
     depends_on:
       - wordpress
     env_file: ./.env
@@ -72,7 +72,7 @@ services:
     # networks:
     #  -  docker-network
     volumes:
-      - /home/data/wordpress:/atabiti
+      - /home/data/wordpress:/Cloud
 
 
 
