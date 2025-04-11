@@ -2,101 +2,115 @@
 # - name: Setup WordPress on the server
 #   hosts: all
 #   become: yes
+
 # tasks:
 # https://serverfault.com/questions/558378/pass-variables-to-ansible-playbooks
 # - name: Show extra variables using debug
 #   debug:
 #     msg: "{{wordpress_dir}} {{wp_db_name}} {{wp_db_user}} {{wp_db_password}}"
 
-- name: Get my public IP
-  community.general.ipify_facts:
-  register: public_ip_result
-# - name: Display public IP information
-#   debug:
-#     msg: "Your public IP is {{ public_ip_result.ansible_facts.ipify_public_ip }}"
-
-- name: Set WordPress URL from public IP
-  ansible.builtin.set_fact:
-    wordpress_url: "http://{{ public_ip_result.ansible_facts.ipify_public_ip }}"
-- name: Get IP of MariaDB container
-  ansible.builtin.command: "docker inspect -f '{{ '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' }}' mariadb"
-  register: wp_db_host_raw
-
-
-- name: Set wp_db_host fact
-  ansible.builtin.set_fact:
-    wp_db_host: "{{ wp_db_host_raw.stdout }}"
-  
-# - name: Display wp_db_host
-#   debug:
-#     msg: "MariaDB IP is {{ wp_db_host }}"
-
-
-- name: Create WordPress directory
-  ansible.builtin.file:
-    path: "{{ wordpress_dir }}"
-    state: directory
-    mode: '0755'
-
-- name: Install necessary packages
-  apt:
-    name: "{{ wp_packages }}"
-    state: present
-    update_cache: yes
-
-- name: Download and extract WordPress
-  ansible.builtin.unarchive:
-    src: "https://wordpress.org/latest.tar.gz"
-    dest: "{{ wordpress_dir }}"
-    remote_src: yes
-
-- name: Copy wp-config.php sample to wp-config.php
-  ansible.builtin.copy:
-    src: "{{ wordpress_dir }}/wordpress/wp-config-sample.php"
-    dest: "{{ wordpress_dir }}/wordpress/wp-config.php"
-    remote_src: yes
-
-- name: Update database name in wp-config.php
-  ansible.builtin.lineinfile:
+- name: Check if WordPress is already installed
+  ansible.builtin.stat:
     path: "{{ wordpress_dir }}/wordpress/wp-config.php"
-    search_string: "define( 'DB_NAME', 'database_name_here' );"
-    line: "define( 'DB_NAME', '{{ wp_db_name }}' );"
+  register: wp_config_exists
 
-- name: Update database user in wp-config.php
-  ansible.builtin.lineinfile:
-    path: "{{ wordpress_dir }}/wordpress/wp-config.php"
-    search_string: "define( 'DB_USER', 'username_here' );"
-    line: "define( 'DB_USER', '{{ wp_db_user }}' );"
+- name: Skip WordPress installation if already exists
+  ansible.builtin.debug:
+    msg: "WordPress is already installed. Skipping installation."
+  when: wp_config_exists.stat.exists
 
-- name: Update database password in wp-config.php
-  ansible.builtin.lineinfile:
-    path: "{{ wordpress_dir }}/wordpress/wp-config.php"
-    search_string: "define( 'DB_PASSWORD', 'password_here' );"
-    line: "define( 'DB_PASSWORD', '{{ wp_db_password }}' );"
-
-- name: Update database host in wp-config.php
-  ansible.builtin.lineinfile:
-    path: "{{ wordpress_dir }}/wordpress/wp-config.php"
-    search_string: "define( 'DB_HOST', 'localhost' );"
-    line: "define( 'DB_HOST', '{{ wp_db_host }}' );"
-
-- name: Download wp-cli
-  ansible.builtin.get_url:
-    url: "https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
-    dest: "{{ wordpress_dir }}/wordpress/wp-cli.phar"
-    mode: '0755'
-
-- name: Run WordPress setup commands
-  ansible.builtin.command: "{{ item }}"
-  args:
-    chdir: "{{ wordpress_dir }}/wordpress"
-  loop:
-  - "./wp-cli.phar core install --url={{ wordpress_url }} --title='ANAS TABITI SITE' --admin_user={{ wp_admin_user }} --admin_password={{ wp_admin_password }} --admin_email={{ wp_admin_email }} --allow-root"
-  - "./wp-cli.phar user create {{ wp_user }} {{ wp_user }}@domain.com --role=editor --user_pass={{ wp_user_password }} --allow-root"
-  - "./wp-cli.phar option update home '{{ wordpress_url }}' --allow-root"
-  - "./wp-cli.phar option update siteurl '{{ wordpress_url }}' --allow-root"
-
-- name: Clean up downloaded archive
-  ansible.builtin.file:
-    path: "{{ wordpress_dir }}/latest.tar.gz"
-    state: absent
+# Only proceed with the rest of the tasks if WordPress is not already installed
+- block:
+    - name: Get my public IP
+      community.general.ipify_facts:
+      register: public_ip_result
+    
+    # - name: Display public IP information
+    #   debug:
+    #     msg: "Your public IP is {{ public_ip_result.ansible_facts.ipify_public_ip }}"
+    
+    - name: Set WordPress URL from public IP
+      ansible.builtin.set_fact:
+        wordpress_url: "http://{{ public_ip_result.ansible_facts.ipify_public_ip }}"
+    
+    - name: Get IP of MariaDB container
+      ansible.builtin.command: "docker inspect -f '{{ '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' }}' mariadb"
+      register: wp_db_host_raw
+      
+    - name: Set wp_db_host fact
+      ansible.builtin.set_fact:
+        wp_db_host: "{{ wp_db_host_raw.stdout }}"
+        
+    # - name: Display wp_db_host
+    #   debug:
+    #     msg: "MariaDB IP is {{ wp_db_host }}"
+       
+    - name: Create WordPress directory
+      ansible.builtin.file:
+        path: "{{ wordpress_dir }}"
+        state: directory
+        mode: '0755'
+    
+    - name: Install necessary packages
+      apt:
+        name: "{{ wp_packages }}"
+        state: present
+        update_cache: yes
+    
+    - name: Download and extract WordPress
+      ansible.builtin.unarchive:
+        src: "https://wordpress.org/latest.tar.gz"
+        dest: "{{ wordpress_dir }}"
+        remote_src: yes
+    
+    - name: Copy wp-config.php sample to wp-config.php
+      ansible.builtin.copy:
+        src: "{{ wordpress_dir }}/wordpress/wp-config-sample.php"
+        dest: "{{ wordpress_dir }}/wordpress/wp-config.php"
+        remote_src: yes
+    
+    - name: Update database name in wp-config.php
+      ansible.builtin.lineinfile:
+        path: "{{ wordpress_dir }}/wordpress/wp-config.php"
+        search_string: "define( 'DB_NAME', 'database_name_here' );"
+        line: "define( 'DB_NAME', '{{ wp_db_name }}' );"
+    
+    - name: Update database user in wp-config.php
+      ansible.builtin.lineinfile:
+        path: "{{ wordpress_dir }}/wordpress/wp-config.php"
+        search_string: "define( 'DB_USER', 'username_here' );"
+        line: "define( 'DB_USER', '{{ wp_db_user }}' );"
+    
+    - name: Update database password in wp-config.php
+      ansible.builtin.lineinfile:
+        path: "{{ wordpress_dir }}/wordpress/wp-config.php"
+        search_string: "define( 'DB_PASSWORD', 'password_here' );"
+        line: "define( 'DB_PASSWORD', '{{ wp_db_password }}' );"
+    
+    - name: Update database host in wp-config.php
+      ansible.builtin.lineinfile:
+        path: "{{ wordpress_dir }}/wordpress/wp-config.php"
+        search_string: "define( 'DB_HOST', 'localhost' );"
+        line: "define( 'DB_HOST', '{{ wp_db_host }}' );"
+    
+    - name: Download wp-cli
+      ansible.builtin.get_url:
+        url: "https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
+        dest: "{{ wordpress_dir }}/wordpress/wp-cli.phar"
+        mode: '0755'
+    
+    - name: Run WordPress setup commands
+      ansible.builtin.command: "{{ item }}"
+      args:
+        chdir: "{{ wordpress_dir }}/wordpress"
+      loop:
+      - "./wp-cli.phar core install --url={{ wordpress_url }} --title='ANAS TABITI SITE' --admin_user={{ wp_admin_user }} --admin_password={{ wp_admin_password }} --admin_email={{ wp_admin_email }} --allow-root"
+      - "./wp-cli.phar user create {{ wp_user }} {{ wp_user }}@domain.com --role=editor --user_pass={{ wp_user_password }} --allow-root"
+      - "./wp-cli.phar option update home '{{ wordpress_url }}' --allow-root"
+      - "./wp-cli.phar option update siteurl '{{ wordpress_url }}' --allow-root"
+    
+    - name: Clean up downloaded archive
+      ansible.builtin.file:
+        path: "{{ wordpress_dir }}/latest.tar.gz"
+        state: absent
+  when: not wp_config_exists.stat.exists
