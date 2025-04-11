@@ -1,5 +1,9 @@
 ---
 # tasks file for database
+- name: Copy mariadb to remote server
+  ansible.builtin.copy:
+    src: ../../../srcs/requirements/mariadb
+    dest: /home/ubuntu/inception/requirements
 - name: Create data directory for MariaDB
   file:
     path: "/home/data/database"

@@ -1,3 +1,5 @@
+---
+# tasks file for common
 # ---
 # - hosts: all
 #   remote_user: ubuntu
@@ -46,3 +48,18 @@
     - name: install docker compose
       ansible.builtin.apt:
           name: docker-compose
+
+    - name: Copy docker-compose to remote server
+      ansible.builtin.copy:
+        src: ../../../srcs/docker-compose.yml
+        dest: /home/ubuntu/inception/
+
+    # copy .env to vm
+    - name: Copy env to remote server
+      ansible.builtin.copy:
+        src: ../../../srcs/.env
+        dest: /home/ubuntu/inception/
+    - name: Copy env to remote server
+      ansible.builtin.copy:
+        src: ../../../srcs/requirements/nginx/
+        dest:  /home/ubuntu/inception/requirements/nginx

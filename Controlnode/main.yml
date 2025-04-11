@@ -2,12 +2,9 @@
 - hosts: all
   remote_user: ubuntu
   become: true
-  vars_files:
-    - secrets.yml
   roles:
-    - copy_files_to_servers
-    - install_docker
-    - database
-    - deploy
+    - common
+    # - database
     # - wordpress
+    - deploy
     - nginx
