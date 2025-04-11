@@ -4,7 +4,7 @@
   become: true
   roles:
     - common
-    # - database
-    # - wordpress
+    - database
+    - wordpress
     - deploy
     - nginx
