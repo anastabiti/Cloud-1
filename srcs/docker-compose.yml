@@ -28,7 +28,7 @@ services:
     # networks:
     #   -  docker-network
     volumes:
-      - /home/data/wordpress:/Cloud
+      - /home/data:/Cloud
     depends_on:
       - wordpress
     env_file: ./.env
@@ -72,7 +72,7 @@ services:
     # networks:
     #  -  docker-network
     volumes:
-      - /home/data/wordpress:/Cloud
+      - /home/data:/Cloud
 
 
 

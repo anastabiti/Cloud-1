@@ -9,5 +9,5 @@
     - install_docker
     - database
     - deploy
-    - wordpress
+    # - wordpress
     - nginx
