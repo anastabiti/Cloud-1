@@ -1,1 +1,2 @@
-ec2-13-51-197-139.eu-north-1.compute.amazonaws.com ansible_user=ubuntu ansible_ssh_private_key_file=~/Desktop/cloud-key.pem
+[all]
+13.51.108.64 ansible_user=ubuntu  ansible_ssh_private_key_file=~/Desktop/cloud-key2.pem

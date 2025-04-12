@@ -1,47 +1,22 @@
 # create_ec2.yml
 - name: Create EC2 Instance on AWS
   hosts: localhost
-  connection: local
+  # connection: local
   # gather_facts: no
   vars_files:
-    - vars/vars.yml
+    - vars.yml
   tasks:
-    # - name: Create security group
-    #   amazon.aws.ec2_security_group:
-    #     name: web-server-sg
-    #     description: Security group for web servers with SSH, HTTP, and HTTPS
-    #     region: "{{ aws_region }}"
-    #     rules:
-    #       - proto: tcp
-    #         ports:
-    #           - 22
-    #         cidr_ip: 0.0.0.0/0
-    #         rule_desc: allow SSH access from anywhere
-    #       - proto: tcp
-    #         ports:
-    #           - 80
-    #         cidr_ip: 0.0.0.0/0
-    #         rule_desc: allow HTTP access from anywhere
-    #       - proto: tcp
-    #         ports:
-    #           - 443
-    #         cidr_ip: 0.0.0.0/0
-    #         rule_desc: allow HTTPS access from anywhere
-    #     rules_egress:
-    #       - proto: all
-    #         cidr_ip: 0.0.0.0/0
-    #     state: present
-    #   register: security_group_result
     - name: Create EC2 instance
       amazon.aws.ec2_instance:
+        state: present
+        # name: cloud-9
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
-        state: present
-        name: cloud-1
-        # key_name: "{{ aws_key_name }}"
+        key_name: "{{ aws_key_name }}"
+        # aws_key_file: "{{ aws_key_file }}"
         # vpc_subnet_id: "{{ subnet_id }}"
         instance_type: "{{ instance_type }}"
-        # security_group: "{{ security_group }}"
+        security_group: "{{ security_group }}"
         image_id: "{{ ami_id }}"
         region: "{{ aws_region }}"
         wait: yes
@@ -84,7 +59,7 @@
     - name: Append new EC2 instance IP to inventory.ini
       lineinfile:
         path: ../Controlnode/hosts
-        line: "{{ ec2.instances[0].public_ip_address }} ansible_user=ubuntu  ansible_ssh_private_key_file=~/Desktop/cloud-key.pem"
+        line: "{{ ec2.instances[0].public_ip_address }} ansible_user=ubuntu  ansible_ssh_private_key_file=~/Desktop/cloud-key2.pem"
         create: yes
         insertafter: EOF
         state: present
