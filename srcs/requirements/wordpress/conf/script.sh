@@ -5,12 +5,10 @@ sleep 10
 
 # Try to detect the server's public IP
 SERVER_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4 || echo "")
-
-echo $SERVER_IP;
-# if [ -z "$SERVER_IP" ]; then
-#     # If AWS metadata service isn't available, try alternate methods
-#     SERVER_IP=$(curl -s https://api.ipify.org || curl -s https://ifconfig.me || echo "localhost")
-# fi
+if [ -z "$SERVER_IP" ]; then
+    # If AWS metadata service isn't available, try alternate methods
+    SERVER_IP=$(curl -s https://api.ipify.org || curl -s https://ifconfig.me || echo "localhost")
+fi
 
 echo "Detected server IP: $SERVER_IP"
 echo "Starting WordPress configuration..."
@@ -30,16 +28,10 @@ wp config create --allow-root --skip-check \
 
 # Creates the WordPress tables in the database using the detected IP
 echo "Installing WordPress core with server IP: $SERVER_IP"
-# wp core install \
-#     --url="https://$SERVER_IP" \
-#     --title="My Automated WordPress Site" \
-#     --admin_user=$WORDPRESS_ADMIN \
-#     -admin_email=$ADMIN_WP_EMAIL \
-#     --allow-root
 
     wp core install \
         --url="https://$SERVER_IP" \
-        --title="My Automated WordPress Site" \
+        --title="☁︎ السَّحَابَ الثِّقَالَ ☁︎" \
         --admin_user="$WORDPRESS_ADMIN" \
         --admin_password="$WORDPRESS_PASSWORD_ADMIN" \
         --admin_email="$ADMIN_WP_EMAIL" \
