@@ -1,20 +1,16 @@
 # create_ec2.yml
 - name: Create EC2 Instance on AWS
   hosts: localhost
-  # connection: local
-  # gather_facts: no
   vars_files:
     - vars.yml
   tasks:
     - name: Create EC2 instance
       amazon.aws.ec2_instance:
         state: present
-        # name: cloud-9
+        name: "cloud-instance-{{ ansible_date_time.epoch }}"
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
         key_name: "{{ aws_key_name }}"
-        # aws_key_file: "{{ aws_key_file }}"
-        # vpc_subnet_id: "{{ subnet_id }}"
         instance_type: "{{ instance_type }}"
         security_group: "{{ security_group }}"
         image_id: "{{ ami_id }}"
@@ -22,8 +18,6 @@
         wait: yes
         network:
           assign_public_ip: yes
-        # tags:
-        #   Environment: Test
       register: ec2
     
     - name: Debug EC2 instance structure
