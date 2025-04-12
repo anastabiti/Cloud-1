@@ -1,0 +1,18 @@
+# AWS credentials
+aws_access_key: "AKIA2OIVDJBUXFUIJZFA"
+aws_secret_key: "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"
+
+# AWS configurations
+aws_region: eu-north-1
+
+instance_type: t3.micro
+
+# aws_key_name: cloud-key
+# aws_key_file: ~/Desktop/cloud-key.pem
+
+ami_id: ami-0274f4b62b6ae3bd5  # Ubuntu 20.04 AMI ID (changes by region)
+# subnet_id: vpc-0d58b4c447eb4cefb
+ # Your VPC subnet ID
+security_group: sg-0033710987c647810  # Your security group ID
+
+

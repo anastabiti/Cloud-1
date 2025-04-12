@@ -4,7 +4,7 @@
   connection: local
   # gather_facts: no
   vars_files:
-    - vars.yml
+    - vars/vars.yml
   tasks:
     # - name: Create security group
     #   amazon.aws.ec2_security_group:
@@ -34,12 +34,14 @@
     #   register: security_group_result
     - name: Create EC2 instance
       amazon.aws.ec2_instance:
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
         state: present
         name: cloud-1
-        key_name: "{{ aws_key_name }}"
-        vpc_subnet_id: "{{ subnet_id }}"
+        # key_name: "{{ aws_key_name }}"
+        # vpc_subnet_id: "{{ subnet_id }}"
         instance_type: "{{ instance_type }}"
-        security_group: "{{ security_group }}"
+        # security_group: "{{ security_group }}"
         image_id: "{{ ami_id }}"
         region: "{{ aws_region }}"
         wait: yes
