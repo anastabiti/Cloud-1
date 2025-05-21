@@ -98,4 +98,12 @@ Once deployed, WordPress will be accessible at:
 - Self-signed SSL certificates are generated during deployment
 - WordPress is configured to work with the server's public IP
 - Data persistence is maintained through Docker volumes
+![image](https://github.com/user-attachments/assets/64f4ec05-618b-462a-b57f-726e3047b37b)
+
+![image](https://github.com/user-attachments/assets/30e09a4c-b89c-4a8b-91bd-388d07eea832)
+![image](https://github.com/user-attachments/assets/393494e6-b069-4c32-a63a-ffd4ae080814)
+![image](https://github.com/user-attachments/assets/2e445e6c-7fc1-4d51-918e-1e3960624d0c)
+![image](https://github.com/user-attachments/assets/d9cca708-8b50-4822-bbf7-b581ed037013)
+
+![image](https://github.com/user-attachments/assets/05fe93f4-2175-4f65-a5f0-e0426333f070)
 
