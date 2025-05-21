@@ -24,7 +24,7 @@ fi
 echo "Creating wp-config.php..."
 wp config create --allow-root --skip-check \
      --dbname=$MARIADB_DATABASE --dbuser=$MARIADB_USER  --dbpass=$MARIADB_PASSWORD \
-     --dbhost=mariadb
+     --dbhost=$MYSQL_HOST 
 
 # Creates the WordPress tables in the database using the detected IP
 echo "Installing WordPress core with server IP: $SERVER_IP"

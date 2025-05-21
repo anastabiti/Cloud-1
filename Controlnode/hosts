@@ -1,3 +1,0 @@
-[all]
-13.51.178.182 ansible_user=ubuntu  ansible_ssh_private_key_file=~/Desktop/cloud-key2.pem
-13.49.21.116 ansible_user=ubuntu  ansible_ssh_private_key_file=~/Desktop/cloud-key2.pem
