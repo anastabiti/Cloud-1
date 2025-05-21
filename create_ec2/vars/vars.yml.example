@@ -1,0 +1,11 @@
+aws_key_name: cloud-key2
+
+
+aws_access_key: "AK000000000000000000000000000000"
+aws_secret_key: "cqGMNhs1gC5qrt00000000000000000000d"
+
+aws_region: eu-north-1
+
+instance_type: t3.micro
+ami_id: ami-0c1ac8a41498c1a9c  # Ubuntu 20.04 AMI ID (changes by region)
+security_group: sg-0033710987c647810  # Your security group ID% 
